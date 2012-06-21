@@ -7,6 +7,8 @@ use warnings;
 use MARC::Record;
 use MARC::Field;
 
+our $VERSION = 0.001;
+
 # MARC::Record -> generic hash
 sub MARC::Record::as_generic {
     my $self = shift;
