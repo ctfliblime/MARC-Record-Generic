@@ -44,7 +44,7 @@ sub MARC::Record::new_from_generic {
         push @fields, MARC::Field->new( $tag, @attrs );
     }
 
-    $record->insert_fields_ordered( @fields );
+    $record->append_fields( @fields );
     return $record;
 }
 
