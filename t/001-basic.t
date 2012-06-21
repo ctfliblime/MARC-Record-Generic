@@ -5,7 +5,7 @@ use warnings;
 use Test::More;
 
 BEGIN {
-    use_ok 'MARC::File::Generic';
+    use_ok 'MARC::Record::Generic';
 }
 
 my $data = {

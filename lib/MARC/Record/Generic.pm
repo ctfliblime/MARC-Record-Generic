@@ -1,4 +1,6 @@
-package MARC::File::Generic;
+package MARC::Record::Generic;
+
+# ABSTRACT: read/write MARC data into Perl hashes
 
 use strict;
 use warnings;
