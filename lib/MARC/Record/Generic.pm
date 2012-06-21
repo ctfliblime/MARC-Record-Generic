@@ -5,13 +5,14 @@ package MARC::Record::Generic;
 use strict;
 use warnings;
 use MARC::Record;
+use MARC::Field;
 
 # MARC::Record -> generic hash
-sub encode {
-    my $record = shift;
+sub MARC::Record::as_generic {
+    my $self = shift;
 
     return {
-        leader => $record->leader,
+        leader => $self->leader,
         fields => [ map {
             $_->tag,
             ( $_->is_control_field
@@ -22,13 +23,13 @@ sub encode {
                   subfields => [ map { ($_->[0], $_->[1]) } $_->subfields ],
                 }
             )
-        } $record->fields ],
+        } $self->fields ],
     };
 }
 
 # generic hash -> MARC::Record
-sub decode {
-    my $data = shift;
+sub MARC::Record::new_from_generic {
+    my ($class, $data) = @_;
     my $record = MARC::Record->new();
     $record->leader( $data->{leader} );
 
@@ -45,18 +46,6 @@ sub decode {
 
     $record->insert_fields_ordered( @fields );
     return $record;
-}
-
-### Methods injected into MARC::Record
-
-sub MARC::Record::new_from_generic {
-    my ($class, $data) = @_;
-    return decode( $data );
-}
-
-sub MARC::Record::as_generic {
-    my $self = shift;
-    return encode( $self );
 }
 
 1;
